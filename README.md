@@ -4,7 +4,7 @@
 
 
 ## How to use:
-- Open docker-compose.yml and change the settings on **REPLACEHERE**
+- Open docker-compose.yml and replace the settings on **REPLACEHERE**
 - On the same folder, run the command: docker-compose up
 - Open: http://localhost:5002/swagger
 
