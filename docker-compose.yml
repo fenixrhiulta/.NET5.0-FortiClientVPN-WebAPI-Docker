@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  vpn:
+    build: 
+      context: VPN/.
+    ports:
+      - "5002:5002"
+    environment:
+      - NET_ADMIN
+      - VPNTIMEOUT=10
+      - VPNADDR=**REPLACEHERE_HOST**
+      - VPNUSER=**REPLACEHERE_USER**
+      - VPNPASS=**REPLACEHERE_PASSWORD**
+    privileged: true
+    cap_add:
+      - net_admin
+    restart: unless-stopped
+    security_opt:
+      - label:disable
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+  webapi:
+    build: WebApi/.
+    depends_on:
+      - vpn
+    environment:
+      - Development
+      - ConnectionStrings:**REPLACEHERE_ORACLE_CONNECTION_STRING**
+    network_mode: "service:vpn"
